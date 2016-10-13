@@ -6,4 +6,21 @@
     <string name="name_add">Add Name</string>
     <string name="sub_add">Add Subject</string>
     <string name="topic_add">Add Topic</string>
+    <string-array name="name">
+        <item>Select Name</item>
+        <item>Anshu</item>
+        <item>Arif</item>
+        <item>Moon</item>
+        <item>Rahul</item>
+        <item>Vipul</item>
+    </string-array>
+    <string-array name="subject">
+        <item>Select Subject</item>
+        <item>Android</item>
+        <item>C</item>
+        <item>C++</item>
+        <item>Java</item>
+        <item>Phython</item>
+        <item>Web</item>
+    </string-array>
 </resources>

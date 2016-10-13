@@ -18,16 +18,19 @@ public class Second extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+
         helper=new DatabaseHelper(this);
         name= (TextView) findViewById(R.id.name);
         subject= (TextView) findViewById(R.id.subject);
+
         Intent intent = getIntent();
         String nameSet = intent.getStringExtra("Name");
         String subjectSet = intent.getStringExtra("Subject");
         String[] topics=helper.getTopics(nameSet,subjectSet);
         name.setText(nameSet);
         subject.setText(subjectSet);
-        recycler = (RecyclerView) findViewById(R.id.recyclerView);
+
+        recycler = (RecyclerView) findViewById(R.id.recyclerView);// populating the data .
         manager = new LinearLayoutManager(this);
         recycler.setLayoutManager(manager);
         adapter = new RecyclerAdapter(this,topics);

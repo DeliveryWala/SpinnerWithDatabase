@@ -16,7 +16,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "studentinfo_database";
     private static final String TABLE_NAME = "student_table";
-    private static final int VERSION = 3;
+    private static final int VERSION = 4;
     private static final String UID = "_id";
     private static final String NAME = "name";
     private static final String SUBJECT = "subject";
@@ -80,29 +80,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return id;
 
     }
-    public List<String> getNameLabels()
-    {
-        SQLiteDatabase db=this.getReadableDatabase();
-        List<String> name=new ArrayList<>();
-        Cursor cursor=db.rawQuery(" SELECT * FROM "+TABLE_NAME,null);
+
+    public List<String> getNameLabels() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<String> name = new ArrayList<>();
+        Cursor cursor = db.rawQuery(" SELECT * FROM " + TABLE_NAME, null);
         if (cursor.moveToFirst()) {
-        do {
-            name.add(cursor.getString(1));
-        } while (cursor.moveToNext());
-    }
+            do {
+                if (name.contains(cursor.getString(1))) {
+
+                } else {
+                    name.add(cursor.getString(1));
+                }
+
+            } while (cursor.moveToNext());
+        }
         cursor.close();
         db.close();
         return name;
 
     }
-    public List<String> getSubjectLabels(String name)
-    {
-        SQLiteDatabase db=this.getReadableDatabase();
-        List<String> subject=new ArrayList<>();
-        Cursor cursor=db.rawQuery(" SELECT * FROM "+TABLE_NAME+" where "+NAME+" = '"+name+"';",null);
+
+    public List<String> getSubjectLabels() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<String> subject = new ArrayList<>();
+        Cursor cursor = db.rawQuery(" SELECT * FROM " + TABLE_NAME , null);
         if (cursor.moveToFirst()) {
             do {
-                subject.add(cursor.getString(2));
+                if (subject.contains(cursor.getString(2))) {
+
+                } else {
+                    subject.add(cursor.getString(2));
+                }
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -110,19 +119,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return subject;
 
     }
-    public String[] getTopics(String name,String subject)
-    {
-        SQLiteDatabase db=this.getReadableDatabase();
-        String[] topics= new String[20];
-        Cursor cursor=db.rawQuery(" SELECT * FROM "+TABLE_NAME+" where "+NAME+" = '"+name+"' AND "+SUBJECT+" = '"+subject+"';",null);
-        if(cursor.moveToFirst())
-        {
-            for(int i=0;cursor.moveToNext();i++)
-            {
-                topics[i]=cursor.getString(3);
+
+    public String[] getTopics(String name, String subject) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] topics = new String[20];
+        Cursor cursor = db.rawQuery(" SELECT * FROM " + TABLE_NAME + " where " + NAME + " = '" + name + "' AND " + SUBJECT + " = '" + subject + "';", null);
+        if (cursor.moveToFirst()) {
+            for (int i = 0; cursor.moveToNext(); i++) {
+                topics[i] = cursor.getString(3);
             }
         }
         return topics;
 
     }
+public List<Information> showAll()
+{
+    SQLiteDatabase db = this.getReadableDatabase();
+    List<Information> data=new ArrayList<>();
+    Cursor cursor=db.rawQuery(" SELECT * FROM "+TABLE_NAME,null);
+    if(cursor.moveToFirst()){
+        do{
+            String name=cursor.getString(1);
+            String subject=cursor.getString(2);
+            String topics=cursor.getString(3);
+            Information info=new Information(name,subject,topics);
+            data.add(info);
+        }while(cursor.moveToNext());
+    }
+    return data;
+
+}
+
 }

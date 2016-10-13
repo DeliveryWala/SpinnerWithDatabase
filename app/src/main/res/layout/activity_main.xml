@@ -101,5 +101,16 @@
         android:padding="15dp"
         android:prompt="@string/select_subject" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show All"
+        android:id="@+id/button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/add_topic_label"
+        android:layout_alignEnd="@+id/add_topic_label"
+        android:layout_toRightOf="@+id/btn_add"
+        android:layout_toEndOf="@+id/btn_add" />
+
 
 </RelativeLayout>
